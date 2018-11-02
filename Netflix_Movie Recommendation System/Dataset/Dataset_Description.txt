@@ -8,4 +8,4 @@ Each row represents a rating of a movie by some user. Ratings are integers from
 
 The file movie_titles.csv is from the original Netflix dataset. The former has rows having the format:
 MovieID,YearOfRelease,Title.
-Note that it contains many more movies than have been mentioned in ratings.csv
+Note that it contains many more movies than have been mentioned in ratings.txt
