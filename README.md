@@ -1,3 +1,5 @@
 # Machine-Learning
+
 Projects covering concepts of machine learning
-Find the Netflix_Project folder for collaborative filtering concept.
+
+Find the Netflix_Movie_Recommendation_System folder for collaborative filtering concept.
