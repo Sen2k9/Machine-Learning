@@ -1,0 +1,141 @@
+https://github.com/mininet/openflow-tutorial/wiki/Learn-Development-Tools
+Start Mininet VM
+Login with Password
+Login: mininet
+password: mininet
+
+To show the available interfaces on the Mininet VM run:
+ifconfig
+I set up Mininet VM so that eth0 will be connected to NAT interface on host computer, so it has been assigned an IP address that will work on the LAN connected to the host computer.
+
+To see all available interfaces run:
+ifconfig -a
+
+if eth1 is not set up for DHCP client that is running on the host only interface run:
+sudo dhclient eth1
+ifconfig
+now the eth1 has an IP 10.0.2.15(host-only IP)
+to verify the interface is working run:
+ping -c 10.0.2.15
+
+To permanently configure the new interface run:
+sudo vi  /etc/network/interfaces
+
+copy the configuration for eth0 to eth1
+
+auto eth1
+iface eth1 inet dhcp
+
+Connect with SSH:
+Open terminal window
+run the command to use the SSH client on your computer to start ans SSH session to the Mininet VM
+ssh -Y mininet@192.168.56.101
+You will see a warning about the RSA key. Enter “yes” to continue. This will also add the RSA key to your SSH client so you will not see the warning again.
+Now you are logged into the Mininet virtual machine via a secure SSH session. Now, you can run remote X11 clients on the Mininet virtual machine over this SSH session.
+
+Launch a remote X11 client
+In the Terminal window, which is now running an SSH session connected to the Mininet virtual machine, start an Xterm:
+xterm -sb &
+
+An Xterm window will open on the screen. You need the “-sb” option if you want to have a scrolling buffer in the Xterm window (so you can scroll back if you need to).
+As an extra activity, run Wireshark on the Mininet Xterm window:
+sudo wireshark &
+
+Learn Development Tools:
+SDN:
+OpenFlowSwitch:he OpenFlow reference distribution includes a user-space software switch
+ovs-ofctl:command-line utility that sends quick OpenFlow messages, useful for viewing switch port and flow stats or manually inserting flow entries.
+iperf: general command-line utility for testing the speed of a single TCP connection.
+cbench: utility for testing the flow setup rate of OpenFlow controllers. 
+*****
+Creating Network:
+To create this network in the VM, in an SSH terminal, enter: 
+sudo mn --topo single,3 --mac --switch ovsk --controller remote
+
+This tells Mininet to start up a 3-host, single-(openvSwitch-based)switch topology, set the MAC address of each host equal to its IP, and point to a remote controller which defaults to the localhost. 
+Mininet Brif Intro:
+ mininet> nodes
+mininet> help
+mininet> h1 ifconfig
+mininet> xterm h1 h2
+to exit: exit
+to start: sudo mn -c
+
+ovs-otctl Example Usage:
+ovs-ofctl is a utility that comes with Open vSwitch and enables visibility and control over a single switch's flow table. It is especially useful for debugging, by viewing flow state and flow counters. Most OpenFlow switches can start up with a passive listening port, from which you can poll the switch, without having to add debugging code to the controller.
+
+Create a second SSH window if you don't already have one, and run: 
+sudo ovs-ofctl show s1
+
+The show command connects to the switch and dumps out its port state and capabilities.
+
+
+Here's a more useful command: sudo ovs-ofctl dump-flows s1
+Since we haven't started any controller yet, the flow-table should be empty. 
+
+Accessing remote OVS instances:
+CP port using a command like
+
+ $ ovs-ofctl dump-flows tcp:{ip address}:{port}
+
+where {ip address} is the IP address of the switch's management interface and {port} is the passive OpenFlow listening/management port. If Mininet is invoked with --switch user, it will open up a passive listening port for each switch at port (6633+n) where n is the number of the switch. This will enable ovs-ofctl to be used in commands like
+
+ $ ovs-ofctl dump-flows tcp:127.0.0.1:6634
+
+For the purposes of this tutorial, you will usually be using Open vSwitch so you can just use the simple form of the ovs-ofctl command. 
+
+Ping Test:
+Now, go back to the mininet console and try to ping h2 from h1. In the Mininet console:
+
+ mininet> h1 ping -c3 h2
+
+Note that the name of host h2 is automatically replaced when running commands in the Mininet console with its IP address (10.0.0.2). 
+
+Do you get any replies? Why? Why not?
+
+As you saw before, switch flow table is empty. Besides that, there is no controller connected to the switch and therefore the switch doesn't know what to do with incoming traffic, leading to ping failure. 
+
+You'll use ovs-ofctl to manually install the necessary flows. In your SSH terminal:
+
+ # sudo ovs-ofctl add-flow s1 in_port=1,actions=output:2
+ # sudo ovs-ofctl add-flow s1 in_port=2,actions=output:1
+
+This will forward packets coming at port 1 to port 2 and vice-verca. Verify by checking the flow-table 
+ # ovs-ofctl dump-flows s1
+
+Run the ping command again. In your mininet console:
+
+ mininet> h1 ping -c3 h2
+
+Do you get replies now? Check the flow-table again and look the statistics for each flow entry. Is this what you expected to see based on the ping traffic? 
+
+Start Wireshark:
+Start a new SSH terminal and connect to the VM with X11 forwarding. 
+ssh -Y mininet@[guest ip address]
+
+Now open Wireshark:
+
+ $ sudo wireshark &
+Click on Capture->Interfaces in the menu bar. Click on the Start button next to 'lo', the loopback interface. You may see some packets going by. 
+
+Now Start the attack:
+SMTP:
+ xterm h1 h2
+
+ on h1 terminal "python -m SimpleHTTPServer 80&
+
+ on h2 terminal "ping 10.0.0.1"
+
+Dataset:
+feature name 	description  	type
+duration  	length (number of seconds) of the connection  	continuous
+protocol_type  	type of the protocol, e.g. tcp, udp, etc.  	discrete
+service  	network service on the destination, e.g., http, telnet, etc.  	discrete
+src_bytes  	number of data bytes from source to destination  	continuous
+dst_bytes  	number of data bytes from destination to source  	continuous
+flag  	normal(0) or error(1) status of the connection  	discrete 
+land  	1 if connection is from/to the same host/port; 0 otherwise  	discrete
+wrong_fragment  	number of ``wrong'' fragments  	continuous
+urgent  	number of urgent packets  	continuous
+
+

@@ -1,0 +1,83 @@
+@relation network_data,,,,,,,,,
+,,,,,,,,,
+@attribute service {http, telnet},,,,,,,,
+@attribute header_length real,,,,,,,,,
+@attribute flags real,,,,,,,,,
+@attribute ttl real,,,,,,,,,
+@attribute source_ip string,,,,,,,,,
+@attribute destination_ip string ,,,,,,,,,
+@attribute protocol {tcp,UDP,ssh, ICMP,,,,,,
+@attribute data_bytes real,,,,,,,,,
+@attribute epoch_time real,,,,,,,,,
+@attribute reply_response_time real,,,,,,,,,
+@attribute land {1,0},,,,,,,,
+@attribute label {Normal, DDOS},,,,,,,,
+,,,,,,,,,
+@data,,,,,,,,,
+http,32,10,64,tcp,66,1524866344,0.000273,0,Normal
+http,32,2,64,tcp,66,1524866344,0.001688,0,Normal
+http,32,2,64,tcp,66,1524866344,0.000086,0,Normal
+http,20,2,64,ssh,138,1524866344,0,0,Normal
+http,20,2,64,ssh,13098,1524860892,0.002219,0,Normal
+http,20,2,64,ssh,15994,1524866317,0.001313,0,Normal
+http,20,2,255,UDP,78,1524866317,0,0,Normal
+http,20,2,255,UDP,78,1524866319,0,0,Normal
+http,20,0,64,ICMP,48,1524867821,0.044,0,Normal
+http,20,0,64,ICMP,98,1524867822,0,0,Normal
+http,20,2,64,ICMP,98,1524867823,0,0,Normal
+http,20,2,64,ARP,42,1524867862,0,0,Normal
+http,20,2,64,ARP,42,1524867862,0,0,Normal
+http,20,0,64,ICMP,98,1524870653,0.017,0,DDOS
+http,20,2,64,ICMP,98,1524870653,0,0,DDOS
+http,32,2,64,tcp,162,1524870917,0.0002,1,DDOS
+http,20,2,64,tcp,66,1524870917,0.000028,1,DDOS
+http,20,2,64,ssh,138,1524872132,0.000513,0,DDOS
+http,20,2,64,ssh,186,1524872132,0.008466,0,DDOS
+http,20,2,64,tcp,66,1524872132,0.000215,0,DDOS
+http,32,2,64,tcp,210,1524872132,0,0,DDOS
+http,20,2,255,UDP,77,1524872132,0,0,DDOS
+http,20,2,255,UDP,77,1524872133,0,0,DDOS
+http,20,2,64,tcp,66,1524872596,0.000075,1,DDOS
+http,20,2,64,tcp,66,1524872596,0.000039,1,DDOS
+http,20,0,64,IPv4,34,1524872693,0,0,DDOS
+http,20,0,64,IPv4,34,1524872693,0,0,DDOS
+http,32,2,64,tcp,442,1524872596,0.000669,1,DDOS
+http,32,2,64,tcp,54,1524872596,0.000017,1,DDOS
+http,20,2,64,tcp,54,1524874668,0.000027,1,Normal
+http,20,2,64,tcp,66,1524874667,0.000123,1,Normal
+http,20,2,64,tcp,66,1524874667,0.038006,1,Normal
+http,20,2,64,tcp,66,1524874667,0.000126,1,Normal
+http,32,2,64,ssh,1402,1524868627,0.002219,0,DDOS
+http,32,0,64,ssh,202,1524868627,0.000416,0,DDOS
+http,32,2,64,ssh,186,1524868627,0.002219,0,DDOS
+http,20,2,64,tcp,66,1524868627,0.000078,0,DDOS
+http,20,2,64,tcp,66,1524868627,0.000116,0,DDOS
+http,20,2,64,ssh,218,1524868627,0.002219,0,DDOS
+http,20,0,64,ICMP,98,1524869944,0.033,0,DDOS
+http,20,2,64,ICMP,98,1524869944,0,0,DDOS
+http,20,2,64,ICMP,98,1524870021,0,0,DDOS
+http,20,0,64,ICMP,98,1524870021,0.004,0,DDOS
+http,32,0,64,tcp,66,1524854730,0.0002,0,Normal
+http,20,0,64,ssh,15994,1524854730,0.002219,0,Normal
+http,20,18,64,ssh,15994,1524860898,0,0,Normal
+http,20,2,64,ssh,562,1524860892,0,0,Normal
+http,20,10,64,ssh,1514,1524860892,0,0,Normal
+http,20,2,64,ssh,466,1524860892,0,0,Normal
+http,32,10,64,tcp,66,1524860892,0.000075,0,Normal
+http,32,10,64,tcp,66,1524860892,0.000227,0,Normal
+http,32,2,64,tcp,66,1524866344,0.04104,0,Normal
+http,32,10,64,tcp,66,1524860892,0.000246,0,Normal
+http,20,2,64,ICMP,98,1524869944,0,0,DDOS
+http,20,2,64,ICMP,98,1524870021,0,0,DDOS
+http,20,2,64,ssh,562,1524860892,0,0,Normal
+http,20,10,64,ssh,1514,1524860892,0,0,Normal
+http,20,2,64,ssh,466,1524860892,0,0,Normal
+http,32,10,64,tcp,66,1524860892,0.000075,0,Normal
+http,20,2,64,tcp,66,1524872596,0.000075,1,Normal
+http,20,2,64,tcp,66,1524872596,0.000039,1,Normal
+http,20,0,64,IPv4,34,1524872693,0,0,Normal
+http,20,0,64,IPv4,34,1524872693,0,0,Normal
+http,32,2,64,tcp,442,1524872596,0.000669,1,Normal
+http,20,2,64,ICMP,98,1524869944,0,0,Normal
+http,20,2,64,ICMP,98,1524870021,0,0,Normal
+http,20,2,64,ICMP,98,1524870021,0,0,Normal
